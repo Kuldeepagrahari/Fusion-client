@@ -1,0 +1,12 @@
+a {
+    /* height:2vh; */
+    padding: 8px 0;
+    display: block;
+    /* border-right: 2px solid black; */
+  }
+  
+  a:hover {
+    color: black;
+    font-weight: 600;
+  }
+  
