@@ -5,14 +5,14 @@ import "../styles/transcript.css";
 
 function StudentTranscript() {
   const location = useLocation();
-  const { student } = location.state || { student: null }; // Fetch student data dynamically
+  const { student = {} } = location.state || {}; // Fetch student data dynamically with fallback
 
   // Fallback to sample data if student is not found
-  const sampleStudentData = student || {
-    rollNumber: "22BCS001",
-    name: "Student 1",
-    semester: 8,
-    courses: [
+  const sampleStudentData = {
+    rollNumber: student.rollNumber || "22BCS001",
+    name: student.name || "Student 1",
+    semester: student.semester || 8,
+    courses: student.courses || [
       {
         courseCode: "CS1001",
         courseName: "DSA",
@@ -44,7 +44,7 @@ function StudentTranscript() {
         grade: "A",
       },
     ],
-    semesterGPAs: {
+    semesterGPAs: student.semesterGPAs || {
       semester1: 8.4,
       semester2: 8.1,
       semester3: 7.9,
@@ -54,7 +54,7 @@ function StudentTranscript() {
       semester7: 8.6,
       semester8: 8.4,
     },
-    overallGPA: 8.3,
+    overallGPA: student.overallGPA || 8.3,
   };
 
   const rows = sampleStudentData.courses.map((course, index) => (
@@ -72,7 +72,7 @@ function StudentTranscript() {
         <td>{semester}</td>
         <td>{gpa}</td>
       </tr>
-    ),
+    )
   );
 
   return (
