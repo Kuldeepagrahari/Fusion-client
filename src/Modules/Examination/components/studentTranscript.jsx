@@ -42,6 +42,12 @@ function StudentTranscript() {
         credits: "4",
         grade: "A",
       },
+      {
+        courseNo: "CS1005",
+        courseTitle: "Software Engineering",
+        credits: "4",
+        grade: "A",
+      },
     ],
     semesterPerformance: [
       { semester: "I", spi: "7.5", cpi: "7.5" },
