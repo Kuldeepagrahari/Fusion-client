@@ -1,13 +1,14 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import SubmitGrades from "./submitGrades.jsx"; // Ensure the file exists and is named correctly
-import VerifyGrades from "./verifyGrades.jsx"; // Ensure the file exists and is named correctly
+import SubmitGrades from "./SubmitGrades.jsx"; // Ensure the file exists and is named correctly
+import VerifyGrades from "./VerifyGrades.jsx"; // Ensure the file exists and is named correctly
 // Uncomment this if you intend to use the Announcement component
 // import Announcement from "./Announcement.jsx";
-import GenerateTranscript from "./generateTranscript.jsx"; // Ensure the file exists and is named correctly
-import SeatingPlan from "./seatingPlan.jsx"; // Ensure the file exists and is named correctly
-import Nav from "./components/nav.jsx"; // Ensure the file exists and is named correctly
+import GenerateTranscript from "./GenerateTranscript.jsx"; // Ensure the file exists and is named correctly
+import SeatingPlan from "./SeatingPlan.jsx"; // Ensure the file exists and is named correctly
+import Nav from "./components/Nav.jsx"; // Ensure the file exists and is named correctly
 import { Layout } from "../../components/layout.jsx"; // Ensure the layout component is imported correctly
-import StudentTranscript from "./components/studentTranscript.jsx"; // Ensure the file exists and is named correctly
+import StudentTranscript from "./components/StudentTranscript.jsx"; // Ensure the file exists and is named correctly
+import Announcement from "./Announcement.jsx";
 
 export default function Examination() {
   return (
@@ -31,6 +32,7 @@ export default function Examination() {
             element={<StudentTranscript />}
           />
           <Route path="/seating-plan" element={<SeatingPlan />} />
+          <Route path="/announcement" element={<Announcement />} />
         </Routes>
       </Layout>
     </div>

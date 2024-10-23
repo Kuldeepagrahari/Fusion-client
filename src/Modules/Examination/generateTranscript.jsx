@@ -1,7 +1,18 @@
 import React, { useState } from "react";
-import { Button, Select, Container, Text, Group, Space } from "@mantine/core";
-// import CustomBreadcrumbs from "../../components/Breadcrumbs.jsx";
-import Transcript from "./components/transcript.jsx";
+import {
+  Container,
+  Paper,
+  // Title,
+  Select,
+  Button,
+  Stack,
+  Group,
+  Text,
+  Box,
+  SimpleGrid,
+} from "@mantine/core";
+import { FileText } from "@phosphor-icons/react";
+import Transcript from "./components/Transcript.jsx";
 
 function GenerateTranscript() {
   const [formData, setFormData] = useState({
@@ -14,10 +25,7 @@ function GenerateTranscript() {
   const [showTranscript, setShowTranscript] = useState(false);
 
   const handleChange = (field) => (value) => {
-    setFormData({
-      ...formData,
-      [field]: value,
-    });
+    setFormData({ ...formData, [field]: value });
   };
 
   const handleSubmit = (e) => {
@@ -25,77 +33,145 @@ function GenerateTranscript() {
     setShowTranscript(true);
   };
 
+  const programs = [
+    { value: "btech", label: "B.Tech" },
+    { value: "bdes", label: "B.Des" },
+    { value: "mtech", label: "M.Tech" },
+    { value: "mdes", label: "M.Des" },
+  ];
+
+  const batches = [
+    { value: "2021", label: "2021" },
+    { value: "2022", label: "2022" },
+    { value: "2023", label: "2023" },
+    { value: "2024", label: "2024" },
+  ];
+
+  const semesters = Array.from({ length: 8 }, (_, i) => ({
+    value: `${i + 1}`,
+    label: `Semester ${i + 1}`,
+  }));
+
+  const specializations = [
+    { value: "cse", label: "CSE" },
+    { value: "ece", label: "ECE" },
+    { value: "me", label: "ME" },
+    { value: "sm", label: "SM" },
+    { value: "design", label: "Design" },
+  ];
+
   return (
-    <Container size="md" className="min-h-screen p-6">
-      <Text size="xl" weight={700} className="mb-6">
-        Generate Transcript
-      </Text>
-      <form onSubmit={handleSubmit}>
-        <Group grow spacing="md">
-          {/* Program */}
-          <Select
-            label="Program"
-            placeholder="Select Program"
-            data={[
-              { value: "btech", label: "B.Tech" },
-              { value: "bdes", label: "B.Des" },
-              { value: "mtech", label: "M.Tech" },
-              { value: "mdes", label: "M.Des" },
-            ]}
-            value={formData.program}
-            onChange={handleChange("program")}
-          />
+    <Container size="xl" p={{ base: "md", md: "xl" }}>
+      <Stack spacing="xl">
+        {/* <Group spacing="xs">
+          <FileText size={32} weight="bold" />
+          <Title order={1} size="h2">
+            Generate Transcript
+          </Title>
+        </Group> */}
 
-          {/* Batch */}
-          <Select
-            label="Batch"
-            placeholder="Select Batch"
-            data={[
-              { value: "2021", label: "2021" },
-              { value: "2022", label: "2022" },
-              { value: "2023", label: "2023" },
-              { value: "2024", label: "2024" },
-            ]}
-            value={formData.batch}
-            onChange={handleChange("batch")}
-          />
+        <Paper shadow="sm" radius="sm" p={{ base: "md", md: "xl" }} withBorder>
+          <Stack spacing="lg">
+            <Text size="lg" weight={500}>
+              Transcript Details
+            </Text>
 
-          {/* Semester */}
-          <Select
-            label="Semester"
-            placeholder="Select Semester"
-            data={Array.from({ length: 8 }, (_, i) => ({
-              value: `${i + 1}`,
-              label: `Semester ${i + 1}`,
-            }))}
-            value={formData.semester}
-            onChange={handleChange("semester")}
-          />
+            <form onSubmit={handleSubmit}>
+              <Stack spacing="xl">
+                <SimpleGrid
+                  cols={{ base: 1, sm: 2, lg: 4 }}
+                  spacing={{ base: "md", md: "lg" }}
+                >
+                  <Box>
+                    <Select
+                      label="Program"
+                      placeholder="Select Program"
+                      data={programs}
+                      value={formData.program}
+                      onChange={handleChange("program")}
+                      styles={{
+                        label: {
+                          marginBottom: "0.5rem",
+                          fontWeight: 500,
+                        },
+                      }}
+                      radius="sm"
+                    />
+                  </Box>
 
-          {/* Specialization */}
-          <Select
-            label="Specialization"
-            placeholder="Select Specialization"
-            data={[
-              { value: "cse", label: "CSE" },
-              { value: "ece", label: "ECE" },
-              { value: "me", label: "ME" },
-              { value: "sm", label: "SM" },
-              { value: "design", label: "Design" },
-            ]}
-            value={formData.specialization}
-            onChange={handleChange("specialization")}
-          />
-        </Group>
+                  <Box>
+                    <Select
+                      label="Batch"
+                      placeholder="Select Batch"
+                      data={batches}
+                      value={formData.batch}
+                      onChange={handleChange("batch")}
+                      styles={{
+                        label: {
+                          marginBottom: "0.5rem",
+                          fontWeight: 500,
+                        },
+                      }}
+                      radius="sm"
+                    />
+                  </Box>
 
-        <Space h="md" />
+                  <Box>
+                    <Select
+                      label="Semester"
+                      placeholder="Select Semester"
+                      data={semesters}
+                      value={formData.semester}
+                      onChange={handleChange("semester")}
+                      styles={{
+                        label: {
+                          marginBottom: "0.5rem",
+                          fontWeight: 500,
+                        },
+                      }}
+                      radius="sm"
+                    />
+                  </Box>
 
-        <Button type="submit" onClick={handleSubmit} variant="filled">
-          Search
-        </Button>
-      </form>
+                  <Box>
+                    <Select
+                      label="Specialization"
+                      placeholder="Select Specialization"
+                      data={specializations}
+                      value={formData.specialization}
+                      onChange={handleChange("specialization")}
+                      styles={{
+                        label: {
+                          marginBottom: "0.5rem",
+                          fontWeight: 500,
+                        },
+                      }}
+                      radius="sm"
+                    />
+                  </Box>
+                </SimpleGrid>
 
-      {showTranscript && <Transcript data={formData} />}
+                <Group position="right">
+                  <Button
+                    type="submit"
+                    size="md"
+                    radius="sm"
+                    leftIcon={<FileText size={20} />}
+                  >
+                    Generate Transcript
+                  </Button>
+                </Group>
+              </Stack>
+            </form>
+          </Stack>
+        </Paper>
+
+        {showTranscript && (
+          <Box mt="xl">
+            <Transcript data={formData} />
+          </Box>
+        )}
+      </Stack>
     </Container>
   );
 }

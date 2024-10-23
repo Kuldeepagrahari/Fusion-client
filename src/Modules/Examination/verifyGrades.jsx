@@ -1,6 +1,17 @@
 import React, { useState } from "react";
-import { Table, Checkbox, Button, Select, Text } from "@mantine/core";
-import { CheckCircle } from "@phosphor-icons/react";
+import {
+  Table,
+  Checkbox,
+  Button,
+  Select,
+  Text,
+  Container,
+  Paper,
+  Grid,
+  ScrollArea,
+  Box,
+} from "@mantine/core";
+// import { CheckCircle } from "lucide-react";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 const data = [
@@ -26,7 +37,10 @@ const COLORS = gradeData.map((entry) => entry.color);
 
 function VerifyGrades() {
   const [verified, setVerified] = useState(false);
-  const [showContent, setShowContent] = useState(false); // State to manage content visibility
+  const [showContent, setShowContent] = useState(false);
+  const [course, setCourse] = useState("");
+  const [year, setYear] = useState("");
+  const [batch, setBatch] = useState("");
 
   const handleVerify = () => setVerified(!verified);
 
@@ -39,7 +53,7 @@ function VerifyGrades() {
   };
 
   const handleSearch = () => {
-    setShowContent(true); // Show content after clicking Search button
+    setShowContent(true);
   };
 
   const rows = data.map((item) => (
@@ -53,149 +67,122 @@ function VerifyGrades() {
   ));
 
   return (
-    <div style={{ padding: "1rem", backgroundColor: "transparent" }}>
-      {/* Horizontal Select Options */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "1.5rem",
-        }}
-      >
-        <Select
-          label="Course"
-          placeholder="Select course"
-          defaultValue="CS3010"
-          data={["CS3010", "CS3020", "CS3030"]}
-          style={{ width: "30%" }}
-        />
-        <Select
-          label="Academic Year"
-          placeholder="Select year"
-          defaultValue="2022-23"
-          data={["2022-23", "2021-22", "2020-21"]}
-          style={{ width: "30%" }}
-        />
-        <Select
-          label="Batch"
-          placeholder="Select batch"
-          defaultValue="2022"
-          data={["2021", "2022", "2023"]}
-          style={{ width: "30%" }}
-        />
-      </div>
+    <Container size="xl">
+      <Paper shadow="xs" p="md">
+        <Text size="xl" weight={700} mb="md">
+          Verify Grades
+        </Text>
+        <Grid>
+          <Grid.Col xs={12} sm={4}>
+            <Select
+              label="Course"
+              placeholder="Select course"
+              value={course}
+              onChange={setCourse}
+              data={["CS3010", "CS3020", "CS3030"]}
+            />
+          </Grid.Col>
+          <Grid.Col xs={12} sm={4}>
+            <Select
+              label="Academic Year"
+              placeholder="Select year"
+              value={year}
+              onChange={setYear}
+              data={["2022-23", "2021-22", "2020-21"]}
+            />
+          </Grid.Col>
+          <Grid.Col xs={12} sm={4}>
+            <Select
+              label="Batch"
+              placeholder="Select batch"
+              value={batch}
+              onChange={setBatch}
+              data={["2021", "2022", "2023"]}
+            />
+          </Grid.Col>
+        </Grid>
+        <Box mt="md">
+          <Button onClick={handleSearch} size="sm">
+            Search
+          </Button>
+        </Box>
 
-      {/* Search Button */}
-      <div style={{ textAlign: "center", marginBottom: "2rem" }}>
-        <Button onClick={handleSearch}>Search</Button>
-      </div>
+        {showContent && (
+          <>
+            <ScrollArea mt="lg">
+              <Table striped highlightOnHover>
+                <thead>
+                  <tr>
+                    <th>Student ID</th>
+                    <th>Batch</th>
+                    <th>Semester</th>
+                    <th>Marks</th>
+                    <th>Grades</th>
+                  </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+              </Table>
+            </ScrollArea>
 
-      {/* Conditionally render content based on the search button click */}
-      {showContent && (
-        <>
-          {/* Scrollable Grades Table */}
-          <div
-            style={{
-              maxHeight: "300px",
-              overflowY: "scroll",
-              backgroundColor: "white",
-              borderRadius: "8px",
-              padding: "0.5rem",
-              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-            }}
-          >
-            <Table withBorder withColumnBorders striped highlightOnHover>
-              <thead>
-                <tr>
-                  <th style={{ backgroundColor: "#0e99f6", color: "white" }}>
-                    Student ID
-                  </th>
-                  <th style={{ backgroundColor: "#0e99f6", color: "white" }}>
-                    Batch
-                  </th>
-                  <th style={{ backgroundColor: "#0e99f6", color: "white" }}>
-                    Semester
-                  </th>
-                  <th style={{ backgroundColor: "#0e99f6", color: "white" }}>
-                    Marks
-                  </th>
-                  <th style={{ backgroundColor: "#0e99f6", color: "white" }}>
-                    Grades
-                  </th>
-                </tr>
-              </thead>
-              <tbody>{rows}</tbody>
-            </Table>
-          </div>
-
-          {/* Bottom Section with Pie Chart and Checkbox + Button */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "2rem",
-            }}
-          >
-            {/* Pie Chart in a Box */}
-            <div
-              style={{
-                width: "50%",
-                border: "1px solid #e0e0e0",
-                borderRadius: "8px",
-                padding: "1rem",
-                backgroundColor: "white",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Text size="md" weight={500} align="center" mb="sm">
-                Statistics
-              </Text>
-              <PieChart width={500} height={300}>
-                <Pie
-                  data={gradeData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={100}
-                  fill="#8884d8"
-                  label
-                >
-                  {gradeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                  ))}
-                </Pie>
-                <Tooltip />
-                <Legend
-                  layout="vertical"
-                  verticalAlign="bottom"
-                  align="right"
-                />
-              </PieChart>
-            </div>
-
-            {/* Checkbox and Publish Button on the same level */}
-            <div style={{ display: "flex", alignItems: "middle" }}>
-              <Checkbox
-                label="Results Verified"
-                checked={verified}
-                onChange={handleVerify}
-                icon={CheckCircle}
-              />
-              <Button
-                style={{ marginLeft: "1rem" }}
-                onClick={handlePublish}
-                color={verified ? "green" : "gray"}
+            <Grid mt="xl">
+              <Grid.Col xs={12} md={6}>
+                <Paper shadow="xs" p="md">
+                  <Text size="md" weight={500} align="center" mb="sm">
+                    Statistics
+                  </Text>
+                  <PieChart width={400} height={300}>
+                    <Pie
+                      data={gradeData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="50%"
+                      outerRadius={80}
+                      fill="#8884d8"
+                      label
+                    >
+                      {gradeData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                      ))}
+                    </Pie>
+                    <Tooltip />
+                    <Legend
+                      layout="vertical"
+                      verticalAlign="middle"
+                      align="right"
+                    />
+                  </PieChart>
+                </Paper>
+              </Grid.Col>
+              <Grid.Col
+                xs={12}
+                md={6}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
               >
-                Publish
-              </Button>
-            </div>
-          </div>
-        </>
-      )}
-    </div>
+                <Checkbox
+                  label="Results Verified"
+                  checked={verified}
+                  onChange={handleVerify}
+                  // eslint-disable-next-line no-undef
+                  icon={CheckCircle}
+                />
+                <Button
+                  ml="md"
+                  onClick={handlePublish}
+                  color={verified ? "green" : "gray"}
+                >
+                  Publish
+                </Button>
+              </Grid.Col>
+            </Grid>
+          </>
+        )}
+      </Paper>
+    </Container>
   );
 }
 
