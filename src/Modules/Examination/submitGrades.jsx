@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import {
   Select,
   Button,
-  Table,
+  // Table,
   TextInput,
   Grid,
   Text,
@@ -37,20 +37,23 @@ const studentData = [
 function SubmitGrades() {
   const [course, setCourse] = useState("");
   const [year, setYear] = useState("");
-  const [showTable, setShowTable] = useState(false);
-  const [buttonText, setButtonText] = useState("Search");
-  const [grades, setGrades] = useState({});
+  const [excelFile, setExcelFile] = useState(null);
+  // const [grades, setGrades] = useState({});
 
-  const handleSearch = () => {
-    setShowTable(true);
-    setButtonText("Submit");
+  const handleFileChange = (event) => {
+    setExcelFile(event.target.files[0]);
   };
 
-  const handleGradeChange = (index, value) => {
-    setGrades((prevGrades) => ({
-      ...prevGrades,
-      [index]: value,
-    }));
+  // const handleGradeChange = (index, value) => {
+  //   setGrades((prevGrades) => ({
+  //     ...prevGrades,
+  //     [index]: value,
+  //   }));
+  // };
+
+  // Check if all required fields are filled
+  const isFormComplete = () => {
+    return course && year && excelFile;
   };
 
   return (
@@ -67,7 +70,6 @@ function SubmitGrades() {
               data={courses}
               value={course}
               onChange={setCourse}
-              searchable
               required
             />
           </Grid.Col>
@@ -82,15 +84,30 @@ function SubmitGrades() {
             />
           </Grid.Col>
         </Grid>
+
         <Box mt="md">
-          <Button onClick={handleSearch} size="sm">
-            {buttonText}
+          <TextInput
+            type="file"
+            label="Upload Excel Sheet"
+            onChange={handleFileChange}
+            accept=".xlsx, .xls"
+            required
+          />
+        </Box>
+
+        <Box mt="md">
+          <Button
+            size="sm"
+            color={isFormComplete() ? "blue" : "gray"}
+            disabled={!isFormComplete()}
+          >
+            Submit
           </Button>
         </Box>
 
-        {showTable && (
+        {studentData.length > 0 && (
           <ScrollArea>
-            <Table mt="lg" striped highlightOnHover>
+            {/* <Table mt="lg" striped highlightOnHover>
               <thead>
                 <tr>
                   <th>Student ID</th>
@@ -119,15 +136,13 @@ function SubmitGrades() {
                     <td>
                       <TextInput
                         value={grades[index] || ""}
-                        onChange={(e) =>
-                          handleGradeChange(index, e.target.value)
-                        }
+                        onChange={(e) => handleGradeChange(index, e.target.value)}
                       />
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </Table> */}
           </ScrollArea>
         )}
       </Paper>
