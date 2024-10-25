@@ -1,7 +1,17 @@
 import React, { useState } from "react";
-import { Button, Select, Container, Text, Group, Space } from "@mantine/core";
-// import CustomBreadcrumbs from "../../components/Breadcrumbs";
-import "./styles/transcript.css";
+import {
+  Button,
+  Select,
+  Container,
+  Text,
+  Group,
+  // Space,
+  Paper,
+  Stack,
+  SimpleGrid,
+  Alert,
+} from "@mantine/core";
+// import { AlertCircle } from "lucide-react";
 
 function SeatingPlan() {
   const [formData, setFormData] = useState({
@@ -12,98 +22,153 @@ function SeatingPlan() {
     classroom: "",
   });
 
+  const [error, setError] = useState("");
+  const [showResults, setShowResults] = useState(false);
+
   const handleChange = (field) => (value) => {
     setFormData({
       ...formData,
       [field]: value,
     });
+    setError("");
+  };
+
+  const validateForm = () => {
+    const requiredFields = ["title", "shift", "years", "branch", "classroom"];
+    const emptyFields = requiredFields.filter((field) => !formData[field]);
+
+    if (emptyFields.length > 0) {
+      setError("Please fill in all required fields");
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // ShowSeatingPlan(true);
+    if (!validateForm()) return;
+    setShowResults(true);
+    // You can add your seating plan generation logic here
   };
 
   return (
-    <Container size="md" className="min-h-screen p-6">
-      <Text size="xl" weight={700} className="mb-6">
-        Seating Plan
-      </Text>
-      <form onSubmit={handleSubmit}>
-        <Group grow spacing="md">
-          {/* Title */}
-          <Select
-            label="Title"
-            placeholder="Select Title"
-            data={[
-              { value: "midsem", label: "Mid-Sem" },
-              { value: "endsem", label: "End-Sem" },
-            ]}
-            value={formData.title}
-            onChange={handleChange("title")}
-          />
+    <Container size="xl" p="md">
+      <Stack spacing="lg">
+        <Text size="xl" weight={700}>
+          Seating Plan
+        </Text>
 
-          {/* Shift */}
-          <Select
-            label="Shift"
-            placeholder="Select Shift"
-            data={[
-              { value: "morning", label: "Morning" },
-              { value: "afternoon", label: "Afternoon" },
-            ]}
-            value={formData.shift}
-            onChange={handleChange("shift")}
-          />
+        <Paper shadow="sm" radius="md" p="xl" withBorder>
+          <form onSubmit={handleSubmit}>
+            <Stack spacing="lg">
+              {error && (
+                <Alert
+                  // eslint-disable-next-line react/jsx-no-undef
+                  icon={<AlertCircle size={16} />}
+                  title="Error"
+                  color="red"
+                  variant="filled"
+                >
+                  {error}
+                </Alert>
+              )}
 
-          {/* Branch */}
-          <Select
-            label="Branch"
-            placeholder="Select Branch"
-            data={[
-              { value: "cse", label: "CSE" },
-              { value: "ece", label: "ECE" },
-              { value: "me", label: "ME" },
-              { value: "sm", label: "SM" },
-              { value: "bdes", label: "BDES" },
-            ]}
-            value={formData.branch}
-            onChange={handleChange("branch")}
-          />
+              <SimpleGrid cols={{ base: 1, sm: 2, md: 3 }} spacing="md">
+                <Select
+                  label="Title"
+                  placeholder="Select Title"
+                  data={[
+                    { value: "midsem", label: "Mid-Sem" },
+                    { value: "endsem", label: "End-Sem" },
+                  ]}
+                  value={formData.title}
+                  onChange={handleChange("title")}
+                  required
+                />
 
-          {/* Years */}
-          <Select
-            label="Years"
-            placeholder="Select Years"
-            data={[
-              { value: "2021", label: "2021" },
-              { value: "2022", label: "2022" },
-              { value: "2023", label: "2023" },
-              { value: "2024", label: "2024" },
-            ]}
-            value={formData.years}
-            onChange={handleChange("years")}
-          />
-          {/* Classroom */}
-          <Select
-            label="Classroom"
-            placeholder="Select Classroom"
-            data={[
-              { value: "L102", label: "L102" },
-              { value: "L104", label: "L104" },
-              { value: "L105", label: "L105" },
-              { value: "L106", label: "L106" },
-            ]}
-            value={formData.classroom}
-            onChange={handleChange("classroom")}
-          />
-        </Group>
+                <Select
+                  label="Shift"
+                  placeholder="Select Shift"
+                  data={[
+                    { value: "morning", label: "Morning" },
+                    { value: "afternoon", label: "Afternoon" },
+                  ]}
+                  value={formData.shift}
+                  onChange={handleChange("shift")}
+                  required
+                />
 
-        <Space h="md" />
+                <Select
+                  label="Branch"
+                  placeholder="Select Branch"
+                  data={[
+                    { value: "cse", label: "CSE" },
+                    { value: "ece", label: "ECE" },
+                    { value: "me", label: "ME" },
+                    { value: "sm", label: "SM" },
+                    { value: "bdes", label: "BDES" },
+                  ]}
+                  value={formData.branch}
+                  onChange={handleChange("branch")}
+                  required
+                />
 
-        <Button type="submit" onClick={handleSubmit} variant="filled">
-          Search
-        </Button>
-      </form>
+                <Select
+                  label="Years"
+                  placeholder="Select Years"
+                  data={[
+                    { value: "2021", label: "2021" },
+                    { value: "2022", label: "2022" },
+                    { value: "2023", label: "2023" },
+                    { value: "2024", label: "2024" },
+                  ]}
+                  value={formData.years}
+                  onChange={handleChange("years")}
+                  required
+                />
+
+                <Select
+                  label="Classroom"
+                  placeholder="Select Classroom"
+                  data={[
+                    { value: "L102", label: "L102" },
+                    { value: "L104", label: "L104" },
+                    { value: "L105", label: "L105" },
+                    { value: "L106", label: "L106" },
+                  ]}
+                  value={formData.classroom}
+                  onChange={handleChange("classroom")}
+                  required
+                />
+              </SimpleGrid>
+
+              <Group position="right" mt="md">
+                <Button type="submit" size="md" onClick={handleSubmit}>
+                  Generate Seating Plan
+                </Button>
+              </Group>
+            </Stack>
+          </form>
+        </Paper>
+
+        {showResults && (
+          <Paper shadow="sm" radius="md" p="xl" withBorder>
+            <Stack spacing="md">
+              <Text weight={600} size="lg">
+                Selected Options:
+              </Text>
+              <SimpleGrid cols={{ base: 1, sm: 2 }} spacing="xs">
+                <Text>Title: {formData.title}</Text>
+                <Text>Shift: {formData.shift}</Text>
+                <Text>Branch: {formData.branch}</Text>
+                <Text>Year: {formData.years}</Text>
+                <Text>Classroom: {formData.classroom}</Text>
+              </SimpleGrid>
+              {/* Add your seating plan display logic here */}
+            </Stack>
+          </Paper>
+        )}
+      </Stack>
     </Container>
   );
 }
