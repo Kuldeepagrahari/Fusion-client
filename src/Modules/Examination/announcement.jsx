@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Container,
-  Tabs,
   Paper,
   Select,
   TextInput,
@@ -39,6 +38,23 @@ const initialAnnouncements = [
       "The syllabus for Data Structures has been updated. Please review the changes before next class.",
   },
 ];
+
+// eslint-disable-next-line react/prop-types
+function CustomTab({ isActive, onClick, icon: Icon, label }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg border-b-2 transition-all duration-300 ease-in-out transform ${
+        isActive
+          ? "border-blue-500 text-blue-600 bg-blue-50 shadow-sm scale-105"
+          : "border-transparent text-gray-500 hover:text-blue-500 hover:bg-gray-100 hover:shadow-md hover:border-gray-300"
+      }`}
+    >
+      <Icon weight={isActive ? "fill" : "regular"} size={20} />
+      {label}
+    </button>
+  );
+}
 
 function Announcement() {
   const [activeTab, setActiveTab] = useState("make");
@@ -92,7 +108,7 @@ function Announcement() {
         newAnnouncement.batch,
         newAnnouncement.department,
       ],
-      author: "Current User", // Replace with actual user data if needed
+      author: "Current User",
     };
 
     setAnnouncements((prev) => [...prev, announcement]);
@@ -247,24 +263,28 @@ function Announcement() {
   return (
     <Container size="xl" p="md">
       <Stack spacing="xl">
-        <Tabs value={activeTab} onTabChange={setActiveTab}>
-          <Tabs.List grow>
-            <Tabs.Tab value="make" icon={<Bell size={16} />}>
-              Make Announcement
-            </Tabs.Tab>
-            <Tabs.Tab value="browse" icon={<FileText size={16} />}>
-              Browse Announcements
-            </Tabs.Tab>
-          </Tabs.List>
+        {/* Custom Tab Implementation */}
+        <div className="w-full border-b border-gray-200">
+          <div className="flex">
+            <CustomTab
+              isActive={activeTab === "make"}
+              onClick={() => setActiveTab("make")}
+              icon={Bell}
+              label="Make Announcement"
+            />
+            <CustomTab
+              isActive={activeTab === "browse"}
+              onClick={() => setActiveTab("browse")}
+              icon={FileText}
+              label="Browse Announcements"
+            />
+          </div>
+        </div>
 
-          {/* Use Tabs.Panel for both tabs */}
-          <Tabs.Panel value="make" pt="xs">
-            {renderMakeAnnouncement()}
-          </Tabs.Panel>
-          <Tabs.Panel value="browse" pt="xs">
-            {renderBrowseAnnouncements()}
-          </Tabs.Panel>
-        </Tabs>
+        <div className="mt-6">
+          {activeTab === "make" && renderMakeAnnouncement()}
+          {activeTab === "browse" && renderBrowseAnnouncements()}
+        </div>
 
         <Modal
           opened={!!selectedAnnouncement}
