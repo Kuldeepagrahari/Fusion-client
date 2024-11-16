@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Group, Text, Box } from "@mantine/core";
+import { CaretCircleLeft, CaretCircleRight } from "phosphor-react";
 
 const links = [
   { path: "/examination/submit-grades", label: "Submit Grades" },
@@ -26,6 +27,7 @@ export default function Nav() {
 
   return (
     <Box component="nav" p="md">
+      <CaretCircleLeft size={32} />
       <Group
         spacing="md"
         position="left"
@@ -46,6 +48,7 @@ export default function Nav() {
           </NavLink>
         ))}
       </Group>
+      <CaretCircleRight size={32} />
     </Box>
   );
 }
