@@ -19,7 +19,7 @@ export default function Nav() {
 
   const defaultLinkStyle = {
     textDecoration: "none",
-    padding: "0.5rem 1rem",
+    padding: "0.55rem 1rem",
     color: "black",
     display: "inline-block",
   };
