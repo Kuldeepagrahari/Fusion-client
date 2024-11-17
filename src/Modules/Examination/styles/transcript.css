@@ -35,6 +35,7 @@
 
 .transcript-container {
     margin-top: 2rem;
+    border-left: "10px solid #1E90FF";
   }
   
   .transcript-title {
