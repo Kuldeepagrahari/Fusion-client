@@ -1,92 +1,64 @@
-import React from "react";
 import { NavLink } from "react-router-dom";
-import { CaretCircleLeft, CaretCircleRight } from "phosphor-react";
+import { Group, Text } from "@mantine/core";
+import "../styles/nav.css";
+
+const links = [
+  { path: "/examination/submit-grades", label: "Submit Grades" },
+  { path: "/examination/verify-grades", label: "Verify Grades" },
+  { path: "/examination/announcement", label: "Announcement" },
+  { path: "/examination/generate-transcript", label: "Generate Transcript" },
+  { path: "/examination/seating-plan", label: "Seating Plan" },
+];
 
 export default function Nav() {
   const activeLinkStyle = {
     fontWeight: "bold",
-    borderBottom: "3px solid black",
-    paddingBottom: "0.25rem",
+    borderBottom: "2px solid black",
+    paddingBottom: "0.25rem", // Add some space between the text and border-bottom
   };
 
   const defaultLinkStyle = {
     textDecoration: "none",
-    padding: "0px 10px",
+    paddingRight: "1rem",
+    paddingLeft: "1rem",
+    lineHeight: "1",
+    display: "inline-block", // Ensure the border height matches the text
     color: "black",
-    display: "inline-block",
   };
 
-  const linkWrapperStyle = {
-    display: "flex",
-    alignItems: "center",
-    borderRight: "2px solid black",
-    padding: "0 15px",
+  const borderLeftStyle = {
+    paddingLeft: "1rem",
+    height: "100%",
   };
 
   return (
     <div
       style={{
+        marginLeft: "5vw",
         display: "flex",
+        padding: "1rem",
+        width: "100%",
         alignItems: "center",
-        height: "5vh",
-        marginBottom: "30px",
       }}
     >
-      <CaretCircleLeft size={25} />
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <div style={linkWrapperStyle}>
+      <Group direction="row" spacing="md" style={{ flexGrow: 1 }}>
+        {links.map((link) => (
           <NavLink
-            to="/examination/submit-grades"
-            className="borderclass"
+            key={link.path}
+            to={link.path}
             style={({ isActive }) =>
               isActive
                 ? { ...defaultLinkStyle, ...activeLinkStyle }
                 : defaultLinkStyle
             }
+            aria-label={link.label} // Accessibility improvement
           >
-            Submit Grades
+            <Text size="md" style={borderLeftStyle}>
+              {link.label}
+            </Text>
           </NavLink>
-        </div>
-        <div style={linkWrapperStyle}>
-          <NavLink
-            to="/examination/verify-grades"
-            className="borderclass"
-            style={({ isActive }) =>
-              isActive
-                ? { ...defaultLinkStyle, ...activeLinkStyle }
-                : defaultLinkStyle
-            }
-          >
-            Verify Grades
-          </NavLink>
-        </div>
-        <div style={linkWrapperStyle}>
-          <NavLink
-            to="/examination/announcement"
-            className="borderclass"
-            style={({ isActive }) =>
-              isActive
-                ? { ...defaultLinkStyle, ...activeLinkStyle }
-                : defaultLinkStyle
-            }
-          >
-            Announcement
-          </NavLink>
-        </div>
-        <div style={{ padding: "0 15px" }}>
-          <NavLink
-            to="/examination/generate-transcript"
-            style={({ isActive }) =>
-              isActive
-                ? { ...defaultLinkStyle, ...activeLinkStyle }
-                : defaultLinkStyle
-            }
-          >
-            Generate Transcript
-          </NavLink>
-        </div>
-      </div>
-      <CaretCircleRight size={25} />
+        ))}
+      </Group>
     </div>
   );
 }
