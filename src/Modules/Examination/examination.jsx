@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Routes, Route, Navigate } from "react-router-dom";
 import SubmitGrades from "./SubmitGrades.jsx"; // Ensure the file exists and is named correctly
 import VerifyGrades from "./VerifyGrades.jsx"; // Ensure the file exists and is named correctly

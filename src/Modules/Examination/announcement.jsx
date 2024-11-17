@@ -126,7 +126,19 @@ function Announcement() {
   };
 
   const renderMakeAnnouncement = () => (
-    <Paper shadow="sm" radius="md" p="xl" withBorder>
+    <Paper
+      shadow="sm"
+      radius="md"
+      p="xl"
+      withBorder
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "25px",
+        padding: "20px",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        borderLeft: "10px solid #1E90FF",
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <Stack spacing="md">
           {error && (
@@ -261,7 +273,17 @@ function Announcement() {
   );
 
   return (
-    <Container size="xl" p="md">
+    <Container
+      size="xl"
+      p="md"
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "25px",
+        padding: "20px",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        borderLeft: "10px solid #1E90FF",
+      }}
+    >
       <Stack spacing="xl">
         {/* Custom Tab Implementation */}
         <div className="w-full border-b border-gray-200">
