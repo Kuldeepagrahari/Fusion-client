@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable no-use-before-define */
 import React from "react";
 import { jsPDF } from "jspdf";
@@ -259,7 +260,7 @@ function StudentTranscript() {
 // Styles for the component
 const styles = {
   container: {
-    maxWidth: "800px",
+    maxWidth: "799px",
     margin: "0 auto",
     padding: "20px",
     fontFamily: "Arial, sans-serif",
