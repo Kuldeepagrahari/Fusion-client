@@ -9,7 +9,7 @@ import LoginPage from "./pages/login";
 import ForgotPassword from "./pages/forgotPassword";
 import AcademicPage from "./Modules/Academic/index";
 import ValidateAuth from "./helper/validateauth";
-import Examination from "./Modules/Examination/Examination";
+import Examination from "./Modules/Examination/examination";
 
 export default function App() {
   const location = useLocation();
