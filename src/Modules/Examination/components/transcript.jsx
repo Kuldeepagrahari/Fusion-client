@@ -27,16 +27,17 @@ function Transcript({ data }) {
 
   return (
     <div className="transcript-container">
-      <Title order={2} className="transcript-title">
-        Transcript for {data.program.toUpperCase()}, Batch {data.batch},
-        Semester {data.semester}, {data.specialization.toUpperCase()}
-      </Title>
       <ScrollArea className="table-container">
         <Table highlightOnHover className="transcript-table">
           <thead>
             <tr className="table-header">
-              <th className="table-header-cell">Roll Number</th>
-              <th className="table-header-cell">Actions</th>
+              <th className="table-header-cell" colSpan={2}>
+                <Title order={1} className="transcript-title">
+                  Transcript for {data.program.toUpperCase()}, Batch{" "}
+                  {data.batch}, Semester {data.semester},{" "}
+                  {data.specialization.toUpperCase()}
+                </Title>
+              </th>
             </tr>
           </thead>
           <tbody>
