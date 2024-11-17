@@ -70,7 +70,19 @@ function GenerateTranscript() {
           </Title>
         </Group> */}
 
-        <Paper shadow="sm" radius="sm" p={{ base: "md", md: "xl" }} withBorder>
+        <Paper
+          shadow="sm"
+          radius="sm"
+          p={{ base: "md", md: "xl" }}
+          withBorder
+          style={{
+            border: "1px solid #ccc",
+            borderRadius: "25px",
+            padding: "20px",
+            boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+            borderLeft: "10px solid #1E90FF",
+          }}
+        >
           <Stack spacing="lg">
             <Text size="lg" weight={500}>
               Transcript Details

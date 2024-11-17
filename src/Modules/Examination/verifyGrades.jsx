@@ -67,7 +67,16 @@ function VerifyGrades() {
   ));
 
   return (
-    <Container size="xl">
+    <Container
+      size="xl"
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "25px",
+        padding: "20px",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        borderLeft: "10px solid #1E90FF",
+      }}
+    >
       <Paper shadow="xs" p="md">
         <Text size="xl" weight={700} mb="md">
           Verify Grades

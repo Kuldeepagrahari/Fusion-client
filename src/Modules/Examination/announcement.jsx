@@ -129,7 +129,19 @@ function Announcement() {
   };
 
   const renderMakeAnnouncement = () => (
-    <Paper shadow="sm" radius="md" p="xl" withBorder>
+    <Paper
+      shadow="sm"
+      radius="md"
+      p="xl"
+      withBorder
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "25px",
+        padding: "20px",
+        boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+        borderLeft: "10px solid #1E90FF",
+      }}
+    >
       <form onSubmit={handleSubmit}>
         <Stack spacing="md">
           {error && (
@@ -223,7 +235,20 @@ function Announcement() {
         <Text>No announcements to display</Text>
       ) : (
         announcements.map((announcement) => (
-          <Card key={announcement.id} shadow="sm" radius="md" withBorder p="md">
+          <Card
+            key={announcement.id}
+            shadow="sm"
+            radius="md"
+            withBorder
+            p="md"
+            style={{
+              border: "1px solid #ccc",
+              borderRadius: "25px",
+              padding: "20px",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+              borderLeft: "10px solid #1E90FF",
+            }}
+          >
             <Stack spacing="xs">
               <Group position="apart">
                 <Badge size="lg" variant="light">
