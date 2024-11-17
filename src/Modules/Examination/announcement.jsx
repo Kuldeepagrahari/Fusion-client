@@ -17,6 +17,7 @@ import {
   SimpleGrid,
 } from "@mantine/core";
 import { Bell, CalendarBlank, User, FileText, X } from "@phosphor-icons/react";
+import "./styles/announcement.css";
 
 const initialAnnouncements = [
   {
@@ -44,11 +45,13 @@ function CustomTab({ isActive, onClick, icon: Icon, label }) {
   return (
     <button
       onClick={onClick}
-      className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg border-b-2 transition-all duration-300 ease-in-out transform ${
-        isActive
-          ? "border-blue-500 text-blue-600 bg-blue-50 shadow-sm scale-105"
-          : "border-transparent text-gray-500 hover:text-blue-500 hover:bg-gray-100 hover:shadow-md hover:border-gray-300"
-      }`}
+      // className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg border-b-2 transition-all duration-300 ease-in-out transform ${
+      //   isActive
+      //     ? "border-blue-500 text-blue-600 bg-blue-50 shadow-sm scale-105"
+      //     : "border-transparent text-gray-500 hover:text-blue-500 hover:bg-gray-100 hover:shadow-md hover:border-gray-300"
+      // }`}
+      style={isActive ? { backgroundColor: "#1e90ff", color: "white" } : {}}
+      className="announcement-tab"
     >
       <Icon weight={isActive ? "fill" : "regular"} size={20} />
       {label}
@@ -264,8 +267,8 @@ function Announcement() {
     <Container size="xl" p="md">
       <Stack spacing="xl">
         {/* Custom Tab Implementation */}
-        <div className="w-full border-b border-gray-200">
-          <div className="flex">
+        <div className="w-full border-b border-gray-200 py-2">
+          <div style={{ display: "flex", gap: "10px" }}>
             <CustomTab
               isActive={activeTab === "make"}
               onClick={() => setActiveTab("make")}
@@ -277,6 +280,7 @@ function Announcement() {
               onClick={() => setActiveTab("browse")}
               icon={FileText}
               label="Browse Announcements"
+              // className="mx-2 flex items-center space-x-2"
             />
           </div>
         </div>
