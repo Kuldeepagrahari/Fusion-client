@@ -5,12 +5,12 @@ import {
   // Table,
   TextInput,
   Grid,
-  Text,
   Paper,
   Container,
   ScrollArea,
   Box,
 } from "@mantine/core";
+import "./styles/submit.css";
 
 const courses = [
   "Software Engineering - CS3010",
@@ -60,17 +60,16 @@ function SubmitGrades() {
     <Container
       size="xl"
       style={{
-        border: "1px solid #ccc",
         borderRadius: "25px",
         padding: "20px",
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
         borderLeft: "10px solid #1E90FF",
+        backgroundColor: "white",
       }}
     >
-      <Paper shadow="xs" p="md">
-        <Text size="xl" weight={700} mb="md">
-          Submit Grades
-        </Text>
+      <Paper p="md">
+        <h2>Submit Grades</h2>
+
         <Grid>
           <Grid.Col xs={12} sm={6}>
             <Select
@@ -104,13 +103,20 @@ function SubmitGrades() {
           />
         </Box>
 
-        <Box mt="md">
+        <Box mt="md" className="btn-div">
           <Button
             size="sm"
             color={isFormComplete() ? "blue" : "gray"}
             disabled={!isFormComplete()}
           >
             Submit
+          </Button>
+          <Button
+            size="sm"
+            color={isFormComplete() ? "blue" : "gray"}
+            disabled={!isFormComplete()}
+          >
+            Download Template
           </Button>
         </Box>
 

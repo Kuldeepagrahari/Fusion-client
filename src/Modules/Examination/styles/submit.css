@@ -140,3 +140,7 @@
     margin-left: 5px;
     color: #555;
   }
+  .btn-div{
+    display: flex;
+    gap:10px;
+  }
