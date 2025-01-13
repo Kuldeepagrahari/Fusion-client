@@ -529,7 +529,7 @@ const styles = {
     textAlign: "center",
     padding: "8px",
     fontWeight: "bold",
-    backgroundColor: "#f2f2f2",
+    backgroundColor: "#1E90FF",
   },
   td: {
     border: "1px solid #ddd",

@@ -78,9 +78,7 @@ function VerifyGrades() {
       }}
     >
       <Paper p="md">
-        <Text size="xl" weight={700} mb="md">
-          Verify Grades
-        </Text>
+        <h2>Verify Grades</h2>
         <Grid>
           <Grid.Col xs={12} sm={4}>
             <Select

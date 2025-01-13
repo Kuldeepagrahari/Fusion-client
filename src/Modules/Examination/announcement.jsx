@@ -142,6 +142,7 @@ function Announcement() {
         borderLeft: "10px solid #1E90FF",
       }}
     >
+      <h2>Announcements</h2>
       <form onSubmit={handleSubmit}>
         <Stack spacing="md">
           {error && (

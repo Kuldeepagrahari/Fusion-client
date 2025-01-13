@@ -7,7 +7,6 @@ import {
   Button,
   Stack,
   Group,
-  Text,
   Box,
   SimpleGrid,
 } from "@mantine/core";
@@ -63,13 +62,6 @@ function GenerateTranscript() {
   return (
     <Container size="xl" p={{ base: "md", md: "xl" }}>
       <Stack spacing="xl">
-        {/* <Group spacing="xs">
-          <FileText size={32} weight="bold" />
-          <Title order={1} size="h2">
-            Generate Transcript
-          </Title>
-        </Group> */}
-
         <Paper
           shadow="sm"
           radius="sm"
@@ -84,9 +76,7 @@ function GenerateTranscript() {
           }}
         >
           <Stack spacing="lg">
-            <Text size="lg" weight={500}>
-              Transcript Details
-            </Text>
+            <h2>Transcript Details</h2>
 
             <form onSubmit={handleSubmit}>
               <Stack spacing="xl">
