@@ -3,7 +3,6 @@ import {
   Container,
   Paper,
   Select,
-  TextInput,
   Textarea,
   Button,
   Stack,
@@ -38,26 +37,34 @@ const initialAnnouncements = [
     description:
       "The syllabus for Data Structures has been updated. Please review the changes before next class.",
   },
+  {
+    id: 2,
+    author: "Prof. Vipul Mathur",
+    category: "Revised Books",
+    date: "2023-10-02",
+    tags: ["Academics", "CSE", "Btech", "2023"],
+    description:
+      "The syllabus for Data Structures has been updated. Please review the changes before next class.",
+  },
+  {
+    id: 2,
+    author: "Prof. Vipul Mathur",
+    category: "Revised Books",
+    date: "2023-10-02",
+    tags: ["Academics", "CSE", "Btech", "2023"],
+    description:
+      "The syllabus for Data Structures has been updated. Please review the changes before next class.",
+  },
+  {
+    id: 2,
+    author: "Prof. Vipul Mathur",
+    category: "Revised Books",
+    date: "2023-10-02",
+    tags: ["Academics", "CSE", "Btech", "2023"],
+    description:
+      "The syllabus for Data Structures has been updated. Please review the changes before next class.",
+  },
 ];
-
-// eslint-disable-next-line react/prop-types
-function CustomTab({ isActive, onClick, icon: Icon, label }) {
-  return (
-    <button
-      onClick={onClick}
-      // className={`flex-1 flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold rounded-lg border-b-2 transition-all duration-300 ease-in-out transform ${
-      //   isActive
-      //     ? "border-blue-500 text-blue-600 bg-blue-50 shadow-sm scale-105"
-      //     : "border-transparent text-gray-500 hover:text-blue-500 hover:bg-gray-100 hover:shadow-md hover:border-gray-300"
-      // }`}
-      style={isActive ? { backgroundColor: "#1e90ff", color: "white" } : {}}
-      className="announcement-tab"
-    >
-      <Icon weight={isActive ? "fill" : "regular"} size={20} />
-      {label}
-    </button>
-  );
-}
 
 function Announcement() {
   const [activeTab, setActiveTab] = useState("make");
@@ -136,13 +143,13 @@ function Announcement() {
       withBorder
       style={{
         border: "1px solid #ccc",
-        borderRadius: "25px",
-        padding: "20px",
+        borderRadius: "15px",
+        padding: " 0 20px",
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
         borderLeft: "10px solid #1E90FF",
       }}
     >
-      <h2>Announcements</h2>
+      <h1>Announcements</h1>
       <form onSubmit={handleSubmit}>
         <Stack spacing="md">
           {error && (
@@ -194,14 +201,6 @@ function Announcement() {
             />
           </SimpleGrid>
 
-          <TextInput
-            label="Category"
-            placeholder="Enter category"
-            value={newAnnouncement.category}
-            onChange={(e) => handleInputChange("category", e.target.value)}
-            required
-          />
-
           <Textarea
             label="Announcement Details"
             placeholder="What is the announcement about?"
@@ -244,7 +243,7 @@ function Announcement() {
             p="md"
             style={{
               border: "1px solid #ccc",
-              borderRadius: "25px",
+              borderRadius: "15px",
               padding: "20px",
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
               borderLeft: "10px solid #1E90FF",
@@ -252,9 +251,6 @@ function Announcement() {
           >
             <Stack spacing="xs">
               <Group position="apart">
-                <Badge size="lg" variant="light">
-                  {announcement.category}
-                </Badge>
                 <Group spacing={8}>
                   {announcement.tags.map((tag, index) => (
                     <Badge key={index} size="sm" variant="outline">
@@ -272,7 +268,7 @@ function Announcement() {
                 <Text>{announcement.author}</Text>
               </Group>
 
-              <Text lineClamp={3}>{announcement.description}</Text>
+              {/* <Text lineClamp={3}>{announcement.description}</Text> */}
 
               <Group position="right">
                 <Button
@@ -295,19 +291,36 @@ function Announcement() {
         {/* Custom Tab Implementation */}
         <div className="w-full border-b border-gray-200 py-2">
           <div style={{ display: "flex", gap: "10px" }}>
-            <CustomTab
-              isActive={activeTab === "make"}
+            <button
               onClick={() => setActiveTab("make")}
-              icon={Bell}
-              label="Make Announcement"
-            />
-            <CustomTab
-              isActive={activeTab === "browse"}
+              style={
+                activeTab === "make"
+                  ? { backgroundColor: "#1e90ff", color: "white" }
+                  : {}
+              }
+              className="announcement-tab"
+            >
+              <Bell
+                weight={activeTab === "make" ? "fill" : "regular"}
+                size={20}
+              />
+              Make New
+            </button>
+            <button
               onClick={() => setActiveTab("browse")}
-              icon={FileText}
-              label="Browse Announcements"
-              // className="mx-2 flex items-center space-x-2"
-            />
+              style={
+                activeTab === "browse"
+                  ? { backgroundColor: "#1e90ff", color: "white" }
+                  : {}
+              }
+              className="announcement-tab"
+            >
+              <FileText
+                weight={activeTab === "browse" ? "fill" : "regular"}
+                size={20}
+              />
+              Browse
+            </button>
           </div>
         </div>
 
@@ -322,7 +335,6 @@ function Announcement() {
           title={
             selectedAnnouncement && (
               <Group spacing="xs">
-                <Badge size="lg">{selectedAnnouncement.category}</Badge>
                 {selectedAnnouncement.tags.map((tag, index) => (
                   <Badge key={index} size="sm" variant="outline">
                     {tag}

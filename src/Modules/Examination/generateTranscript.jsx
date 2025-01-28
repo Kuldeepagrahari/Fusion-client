@@ -11,7 +11,7 @@ import {
   SimpleGrid,
 } from "@mantine/core";
 import { FileText } from "@phosphor-icons/react";
-import Transcript from "./components/Transcript.jsx";
+import Transcript from "./components/transcript.jsx";
 
 function GenerateTranscript() {
   const [formData, setFormData] = useState({
@@ -69,14 +69,14 @@ function GenerateTranscript() {
           withBorder
           style={{
             border: "1px solid #ccc",
-            borderRadius: "25px",
+            borderRadius: "15px",
             padding: "20px",
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
             borderLeft: "10px solid #1E90FF",
           }}
         >
           <Stack spacing="lg">
-            <h2>Transcript Details</h2>
+            <h1>Transcript Details</h1>
 
             <form onSubmit={handleSubmit}>
               <Stack spacing="xl">

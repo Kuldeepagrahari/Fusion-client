@@ -1,8 +1,33 @@
-import React from "react";
+import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { CaretCircleLeft, CaretCircleRight } from "phosphor-react";
+// import { useSelector } from "react-redux";
 
 export default function Nav() {
+  const scrollContainerRef = useRef(null);
+
+  // Fetching the user role from the Redux store
+  // const userRole = useSelector((state) => state.auth.role);
+  const userRole = "Admin";
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: -150,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({
+        left: 150,
+        behavior: "smooth",
+      });
+    }
+  };
+
   const activeLinkStyle = {
     fontWeight: "bold",
     borderBottom: "3px solid black",
@@ -16,12 +41,31 @@ export default function Nav() {
     display: "inline-block",
   };
 
-  const linkWrapperStyle = {
-    display: "flex",
-    alignItems: "center",
-    borderRight: "2px solid black",
-    padding: "0 15px",
-  };
+  // Tabs data
+  const tabItems = [
+    {
+      title: "Submit",
+      path: "/examination/submit-grades",
+      roles: ["Admin", "Faculty"],
+    },
+    { title: "Verify", path: "/examination/verify-grades", roles: ["Admin"] },
+    {
+      title: "Announcement",
+      path: "/examination/announcement",
+      roles: ["Admin"],
+    },
+    {
+      title: "Transcript",
+      path: "/examination/generate-transcript",
+      roles: ["Admin"],
+    },
+    { title: "Update", path: "/examination/update", roles: ["Dean"] },
+    { title: "Validate", path: "/examination/validate", roles: ["Dean"] },
+    { title: "Result", path: "/examination/result", roles: ["Student"] },
+  ];
+
+  // Filter tabs based on user role
+  const filteredTabs = tabItems.filter((tab) => tab.roles.includes(userRole));
 
   return (
     <div
@@ -32,61 +76,54 @@ export default function Nav() {
         marginBottom: "30px",
       }}
     >
-      <CaretCircleLeft size={25} />
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <div style={linkWrapperStyle}>
-          <NavLink
-            to="/examination/submit-grades"
-            className="borderclass"
-            style={({ isActive }) =>
-              isActive
-                ? { ...defaultLinkStyle, ...activeLinkStyle }
-                : defaultLinkStyle
-            }
+      <button
+        style={{ background: "transparent", border: "none", cursor: "pointer" }}
+        onClick={scrollLeft}
+      >
+        <CaretCircleLeft size={25} />
+      </button>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          overflowX: "auto",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+          flexWrap: "nowrap",
+        }}
+        ref={scrollContainerRef}
+      >
+        {filteredTabs.map((tab, index) => (
+          <div
+            key={index}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              padding: "0 15px",
+              borderRight:
+                index === filteredTabs.length - 1 ? "none" : "2px solid black",
+            }}
           >
-            Submit Grades
-          </NavLink>
-        </div>
-        <div style={linkWrapperStyle}>
-          <NavLink
-            to="/examination/verify-grades"
-            className="borderclass"
-            style={({ isActive }) =>
-              isActive
-                ? { ...defaultLinkStyle, ...activeLinkStyle }
-                : defaultLinkStyle
-            }
-          >
-            Verify Grades
-          </NavLink>
-        </div>
-        <div style={linkWrapperStyle}>
-          <NavLink
-            to="/examination/announcement"
-            className="borderclass"
-            style={({ isActive }) =>
-              isActive
-                ? { ...defaultLinkStyle, ...activeLinkStyle }
-                : defaultLinkStyle
-            }
-          >
-            Announcement
-          </NavLink>
-        </div>
-        <div style={{ padding: "0 15px" }}>
-          <NavLink
-            to="/examination/generate-transcript"
-            style={({ isActive }) =>
-              isActive
-                ? { ...defaultLinkStyle, ...activeLinkStyle }
-                : defaultLinkStyle
-            }
-          >
-            Generate Transcript
-          </NavLink>
-        </div>
+            <NavLink
+              to={tab.path}
+              className="borderclass"
+              style={({ isActive }) =>
+                isActive
+                  ? { ...defaultLinkStyle, ...activeLinkStyle }
+                  : defaultLinkStyle
+              }
+            >
+              {tab.title}
+            </NavLink>
+          </div>
+        ))}
       </div>
-      <CaretCircleRight size={25} />
+      <button
+        style={{ background: "transparent", border: "none", cursor: "pointer" }}
+        onClick={scrollRight}
+      >
+        <CaretCircleRight size={25} />
+      </button>
     </div>
   );
 }

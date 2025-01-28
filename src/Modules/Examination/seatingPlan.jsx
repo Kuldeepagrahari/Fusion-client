@@ -5,13 +5,11 @@ import {
   Container,
   Text,
   Group,
-  // Space,
   Paper,
   Stack,
   SimpleGrid,
   Alert,
 } from "@mantine/core";
-// import { AlertCircle } from "lucide-react";
 
 function SeatingPlan() {
   const [formData, setFormData] = useState({
@@ -48,7 +46,6 @@ function SeatingPlan() {
     e.preventDefault();
     if (!validateForm()) return;
     setShowResults(true);
-    // You can add your seating plan generation logic here
   };
 
   return (
@@ -164,7 +161,6 @@ function SeatingPlan() {
                 <Text>Year: {formData.years}</Text>
                 <Text>Classroom: {formData.classroom}</Text>
               </SimpleGrid>
-              {/* Add your seating plan display logic here */}
             </Stack>
           </Paper>
         )}

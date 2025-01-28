@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
-import { Table, Button, ScrollArea, Title } from "@mantine/core";
+import { Table, Button, ScrollArea } from "@mantine/core";
 import "../styles/transcript.css";
 
 // eslint-disable-next-line react/prop-types
-function Transcript({ data }) {
+function Transcript() {
   const navigate = useNavigate();
 
   // Simulated student data
@@ -29,17 +29,6 @@ function Transcript({ data }) {
     <div className="transcript-container">
       <ScrollArea className="table-container">
         <Table highlightOnHover className="transcript-table">
-          <thead>
-            <tr className="table-header">
-              <th className="table-header-cell" colSpan={2}>
-                <Title order={1} className="transcript-title">
-                  Transcript for {data.program.toUpperCase()}, Batch{" "}
-                  {data.batch}, Semester {data.semester},{" "}
-                  {data.specialization.toUpperCase()}
-                </Title>
-              </th>
-            </tr>
-          </thead>
           <tbody>
             {studentData.map((student) => (
               <tr key={student.rollNumber} className="table-row">

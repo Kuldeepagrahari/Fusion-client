@@ -248,6 +248,8 @@ hr {
     border: none;
     border-radius: 20px;
     border: 2px solid #1e90ff;
-    color: #1e90ff;
-    padding: 5px 15px;
+    color: #1E90FF;
+    font-weight: bold;
+    padding: 0 15px;
+    background-color: white;
 }

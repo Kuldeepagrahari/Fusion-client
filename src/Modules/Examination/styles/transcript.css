@@ -11,9 +11,14 @@
   .transcript-table {
     min-width: 80%;
     text-align: center;
-    border-radius: 30px;
+    border-radius: 15px;
   }
-  
+  .table-container{
+    padding: 20px;
+    border-radius: 15px;
+    border-left: 10px solid #1E90FF;
+    background-color: white;
+  }
   .transcript-table th {
     background-color: #1E90FF;
     color: white;
@@ -22,7 +27,7 @@
   }
   
   .transcript-table td {
-    padding: 16px;
+    padding: 5px;
     border: 1px solid #d0d7de;
     font-weight: bold;
     font-size: 1rem; /* Increased font size for table data */
@@ -34,8 +39,9 @@
   }/* Transcript.css */
 
 .transcript-container {
-    margin-top: 2rem;
+    margin-top: 0rem;
     border-left: "10px solid #1E90FF";
+    width: 100%;
   }
   
   .transcript-title {
@@ -107,8 +113,8 @@
   }
   
   .actions-button {
-    background-color: #F1F8FD;
-    color: #45A1E8;
+    background-color: #1E90FF;
+    color: white;
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
     cursor: pointer;
@@ -116,7 +122,8 @@
   }
   
   .actions-button:hover {
-    color: #1d4ed8;
+    color: black;
+    font-weight: bold;
   }
   
   @media (min-width: 640px) {

@@ -91,12 +91,13 @@ const gradeData = [
 
 const COLORS = gradeData.map((entry) => entry.color);
 
-function VerifyGrades() {
+function VerifyDean() {
   // const [verified, setVerified] = useState(false);
   const verified = false;
   const [showContent, setShowContent] = useState(false);
   const [course, setCourse] = useState("");
   const [year, setYear] = useState("");
+  // const handleVerify = () => setVerified(!verified);
 
   const handlePublish = () => {
     if (verified) {
@@ -126,14 +127,14 @@ function VerifyGrades() {
       size="xl"
       style={{
         borderRadius: "15px",
-        padding: "0 20px",
+        padding: " 0 20px",
         boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
         borderLeft: "10px solid #1E90FF",
         backgroundColor: "white",
       }}
     >
       <Paper p="md">
-        <h1>Verify Grades</h1>
+        <h1>Update Grades</h1>
         <Grid>
           <Grid.Col xs={12} sm={4}>
             <Select
@@ -210,6 +211,7 @@ function VerifyGrades() {
                       align="center"
                       wrapperStyle={{
                         fontSize: "1rem",
+                        marginTop: "20px",
                       }}
                     />
                   </PieChart>
@@ -227,8 +229,14 @@ function VerifyGrades() {
                 <Button ml="md" onClick={handlePublish} color="blue">
                   Verify
                 </Button>
-                <Button ml="md" color="blue">
-                  Download Sheet
+                <Button
+                  ml="md"
+                  onClick={() => {
+                    alert("Are You Sure, Faculty Now Can ReSubmit the Grades");
+                  }}
+                  color="blue"
+                >
+                  Allow ReSubmission
                 </Button>
               </Grid.Col>
             </Grid>
@@ -239,4 +247,4 @@ function VerifyGrades() {
   );
 }
 
-export default VerifyGrades;
+export default VerifyDean;

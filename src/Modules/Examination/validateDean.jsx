@@ -8,6 +8,7 @@ import {
   Container,
   ScrollArea,
   Box,
+  Table,
 } from "@mantine/core";
 import "./styles/submit.css";
 
@@ -23,20 +24,40 @@ const courses = [
 const years = ["2020-2021", "2021-2022", "2022-2023", "2023-2024"];
 
 const studentData = [
-  { id: "22bcs184", batch: 2023, sem: "SEM 1", year: 2021, marks: 86 },
-  { id: "22bcs184", batch: 2024, sem: "SEM 2", year: 2022 },
-  { id: "22bcs234", batch: 2024, sem: "SEM 3", year: 2023 },
-  { id: "22bcs123", batch: 2024, sem: "SEM 4", year: 2023 },
-  { id: "22bcs234", batch: 2021, sem: "SEM 5", year: 2025 },
-  { id: "22bcs345", batch: 2022, sem: "SEM 5", year: 2025, marks: 75 },
-  { id: "22bcs124", batch: 2020, sem: "SEM 5", year: 2025 },
-  { id: "22bcs225", batch: 2023, sem: "SEM 5", year: 2025 },
+  {
+    id: "22bcs184",
+    batch: 2022,
+    sem: "SEM 4",
+    courseid: "CS2003",
+    remarks: "S",
+    gradesDB: "A+",
+    gradesCSV: "A",
+  },
+  {
+    id: "22bcs164",
+    batch: 2022,
+    sem: "SEM 4",
+    courseid: "CS2004",
+    remarks: "S",
+    gradesDB: "A+",
+    gradesCSV: "B",
+  },
+  {
+    id: "22bcs183",
+    batch: 2022,
+    sem: "SEM 4",
+    courseid: "CS2004",
+    remarks: "S",
+    gradesDB: "B+",
+    gradesCSV: "A",
+  },
 ];
 
-function SubmitGrades() {
+function ValidateDean() {
   const [course, setCourse] = useState("");
   const [year, setYear] = useState("");
   const [excelFile, setExcelFile] = useState(null);
+  const [unmatch, setUnmatch] = useState(false);
 
   const handleFileChange = (event) => {
     setExcelFile(event.target.files[0]);
@@ -58,7 +79,7 @@ function SubmitGrades() {
       }}
     >
       <Paper p="md">
-        <h1>Submit Grades</h1>
+        <h1>Validate Grades</h1>
 
         <Grid>
           <Grid.Col xs={12} sm={6}>
@@ -98,16 +119,46 @@ function SubmitGrades() {
             size="sm"
             color={isFormComplete() ? "blue" : "gray"}
             disabled={!isFormComplete()}
+            onClick={() => setUnmatch(true)}
           >
             Submit
           </Button>
-          <Button size="sm">Download Template</Button>
         </Box>
 
-        {studentData.length > 0 && <ScrollArea />}
+        {unmatch && (
+          <ScrollArea>
+            <h3>Mis-Matched Student Grades</h3>
+            <Table striped highlightOnHover>
+              <thead>
+                <tr>
+                  <th>Student ID</th>
+                  <th>Batch</th>
+                  <th>Semester</th>
+                  <th>Course ID</th>
+                  <th>Remarks</th>
+                  <th>Grades in DB</th>
+                  <th>Grades in CSV</th>
+                </tr>
+              </thead>
+              <tbody>
+                {studentData.map((student, index) => (
+                  <tr key={index}>
+                    <td>{student.id}</td>
+                    <td>{student.batch}</td>
+                    <td>{student.sem}</td>
+                    <td>{student.courseid}</td>
+                    <td>{student.remarks}</td>
+                    <td>{student.gradesDB}</td>
+                    <td>{student.gradesCSV}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </ScrollArea>
+        )}
       </Paper>
     </Container>
   );
 }
 
-export default SubmitGrades;
+export default ValidateDean;
