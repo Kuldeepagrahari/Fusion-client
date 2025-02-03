@@ -1,0 +1,11 @@
+import { host } from "../../../routes/globalRoutes";
+
+export const exam_view = `${host}/examination/api/exam_view/`;
+export const download_template = `${host}/examination/api/download_template/`;
+export const get_courses = `${host}/examination/api/submitGrades/`;
+export const upload_grades = `${host}/examination/api/upload_grades/`;
+export const update_grades = `${host}/examination/api/update_grades/`;
+export const update_enter_grades = `${host}/examination/api/update_enter_grades/`;
+export const moderate_student_grades = `${host}/examination/api/moderate_student_grades/`;
+export const generate_transcript = `${host}/examination/api/generate_transcript/`;
+export const generate_transcript_form = `${host}/examination/api/generate_transcript_form/`;
