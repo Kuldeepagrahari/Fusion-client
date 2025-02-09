@@ -18,6 +18,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "20px",
+    gap: "20px",
   },
   table: {
     width: "100%",

@@ -169,9 +169,24 @@ function GenerateTranscript() {
         </Paper>
 
         {showTranscript && (
-          <Box mt="xl">
+          // <Box mt="xl">
+          <Paper
+            shadow="sm"
+            radius="sm"
+            p={{ base: "md", md: "xl" }}
+            withBorder
+            style={{
+              border: "1px solid #ccc",
+              borderRadius: "15px",
+              padding: "20px",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.15)",
+              borderLeft: "10px solid #1E90FF",
+            }}
+          >
             <Transcript data={formData} />
-          </Box>
+          </Paper>
+
+          // </Box>
         )}
       </Stack>
     </Container>
