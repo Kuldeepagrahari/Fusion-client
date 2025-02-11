@@ -8,7 +8,7 @@ export default function Nav() {
 
   // Fetching the user role from the Redux store
   // const userRole = useSelector((state) => state.auth.role);
-  const userRole = "Admin";
+  const userRole = "Student";
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
