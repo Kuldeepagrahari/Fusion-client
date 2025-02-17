@@ -1,46 +1,21 @@
-import React, { useRef } from "react";
-import { NavLink } from "react-router-dom";
-import { CaretCircleLeft, CaretCircleRight } from "phosphor-react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import ModuleTabs from "../../../components/moduleTabs";
 
 export default function Nav() {
-  const scrollContainerRef = useRef(null);
+  const navigate = useNavigate();
 
-  // Fetching the user role from the Redux store
+  // Fetching the user role from Redux store
   const userRole = useSelector((state) => state.user.role);
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: -150,
-        behavior: "smooth",
-      });
-    }
-  };
+  // Fetching the active tab from Redux store
+  const activeTab = useSelector((state) => state.module.active_tab);
 
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({
-        left: 150,
-        behavior: "smooth",
-      });
-    }
-  };
+  // State to manage active tab locally
+  const [selectedTab, setSelectedTab] = useState(activeTab);
 
-  const activeLinkStyle = {
-    fontWeight: "bold",
-    borderBottom: "3px solid black",
-    paddingBottom: "0.25rem",
-  };
-
-  const defaultLinkStyle = {
-    textDecoration: "none",
-    padding: "0px 10px",
-    color: "black",
-    display: "inline-block",
-  };
-
-  // Tabs data
+  // Tabs data with role-based filtering
   const tabItems = [
     {
       title: "Submit",
@@ -71,66 +46,20 @@ export default function Nav() {
     { title: "Result", path: "/examination/result", roles: ["Student"] },
   ];
 
-  // Filter tabs based on user role
+  // Filtering tabs based on user role
   const filteredTabs = tabItems.filter((tab) => tab.roles.includes(userRole));
 
+  // Handling tab change (Navigation)
+  const handleTabChange = (index) => {
+    setSelectedTab(index);
+    navigate(filteredTabs[index].path);
+  };
+
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        height: "5vh",
-        marginBottom: "30px",
-      }}
-    >
-      <button
-        style={{ background: "transparent", border: "none", cursor: "pointer" }}
-        onClick={scrollLeft}
-      >
-        <CaretCircleLeft size={25} />
-      </button>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          overflowX: "auto",
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          flexWrap: "nowrap",
-        }}
-        ref={scrollContainerRef}
-      >
-        {filteredTabs.map((tab, index) => (
-          <div
-            key={index}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              padding: "0 15px",
-              borderRight:
-                index === filteredTabs.length - 1 ? "none" : "2px solid black",
-            }}
-          >
-            <NavLink
-              to={tab.path}
-              className="borderclass"
-              style={({ isActive }) =>
-                isActive
-                  ? { ...defaultLinkStyle, ...activeLinkStyle }
-                  : defaultLinkStyle
-              }
-            >
-              {tab.title}
-            </NavLink>
-          </div>
-        ))}
-      </div>
-      <button
-        style={{ background: "transparent", border: "none", cursor: "pointer" }}
-        onClick={scrollRight}
-      >
-        <CaretCircleRight size={25} />
-      </button>
-    </div>
+    <ModuleTabs
+      tabs={filteredTabs}
+      activeTab={selectedTab}
+      setActiveTab={handleTabChange}
+    />
   );
 }
