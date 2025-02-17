@@ -1,14 +1,13 @@
 import React, { useRef } from "react";
 import { NavLink } from "react-router-dom";
 import { CaretCircleLeft, CaretCircleRight } from "phosphor-react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Nav() {
   const scrollContainerRef = useRef(null);
 
   // Fetching the user role from the Redux store
-  // const userRole = useSelector((state) => state.auth.role);
-  const userRole = "Student";
+  const userRole = useSelector((state) => state.user.role);
 
   const scrollLeft = () => {
     if (scrollContainerRef.current) {
@@ -46,21 +45,29 @@ export default function Nav() {
     {
       title: "Submit",
       path: "/examination/submit-grades",
-      roles: ["Admin", "Faculty"],
+      roles: ["acadadmin", "Professor"],
     },
-    { title: "Verify", path: "/examination/verify-grades", roles: ["Admin"] },
+    {
+      title: "Verify",
+      path: "/examination/verify-grades",
+      roles: ["acadadmin"],
+    },
     {
       title: "Announcement",
       path: "/examination/announcement",
-      roles: ["Admin"],
+      roles: ["acadadmin"],
     },
     {
       title: "Transcript",
       path: "/examination/generate-transcript",
-      roles: ["Admin"],
+      roles: ["acadadmin"],
     },
-    { title: "Update", path: "/examination/update", roles: ["Dean"] },
-    { title: "Validate", path: "/examination/validate", roles: ["Dean"] },
+    { title: "Update", path: "/examination/update", roles: ["Dean Academic"] },
+    {
+      title: "Validate",
+      path: "/examination/validate",
+      roles: ["Dean Academic"],
+    },
     { title: "Result", path: "/examination/result", roles: ["Student"] },
   ];
 

@@ -18,7 +18,7 @@ const RoleBasedFilterExam = () => {
   ];
 
   const roleBasedTabs = {
-    Admin: tabItems.filter((tab) =>
+    acadadmin: tabItems.filter((tab) =>
       [
         "Announcement",
         "Submit Grades",
@@ -26,10 +26,10 @@ const RoleBasedFilterExam = () => {
         "Generate Transcript",
       ].includes(tab.title),
     ),
-    Dean: tabItems.filter((tab) =>
+    dean: tabItems.filter((tab) =>
       ["Validate Grades", "Update Grades"].includes(tab.title),
     ),
-    Student: tabItems.filter((tab) => ["Check Result"].includes(tab.title)),
+    student: tabItems.filter((tab) => ["Check Result"].includes(tab.title)),
   };
 
   return { roleBasedTabs, tabItems };
